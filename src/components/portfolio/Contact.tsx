@@ -5,8 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Contact = () => {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted');
@@ -14,18 +18,34 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-muted/10">
+    <section 
+      ref={sectionRef}
+      id="contact" 
+      className={`py-24 bg-muted/10 transition-all duration-1000 ${
+        sectionVisible 
+          ? 'opacity-100 transform translate-y-0' 
+          : 'opacity-0 transform translate-y-12'
+      }`}
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-800 delay-200 ${
+          sectionVisible 
+            ? 'opacity-100 transform translate-y-0' 
+            : 'opacity-0 transform translate-y-8'
+        }`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Ready to start a project or just want to chat? I'd love to hear from you
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div ref={contentRef} className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <div className="space-y-8">
+          <div className={`space-y-8 transition-all duration-800 delay-400 ${
+            contentVisible 
+              ? 'opacity-100 transform translate-x-0' 
+              : 'opacity-0 transform -translate-x-8'
+          }`}>
             <div>
               <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
@@ -36,38 +56,36 @@ const Contact = () => {
             </div>
             
             <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Mail className="text-primary" size={20} />
+              {[
+                { icon: Mail, title: "Email", value: "contact@johndoe.com" },
+                { icon: Phone, title: "Phone", value: "+1 (555) 123-4567" },
+                { icon: MapPin, title: "Location", value: "San Francisco, CA" }
+              ].map((item, index) => (
+                <div 
+                  key={item.title}
+                  className={`flex items-center space-x-4 transition-all duration-400 ${
+                    contentVisible 
+                      ? 'opacity-100 transform translate-y-0' 
+                      : 'opacity-0 transform translate-y-4'
+                  }`}
+                  style={{ transitionDelay: `${600 + index * 100}ms` }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <item.icon className="text-primary" size={20} />
+                  </div>
+                  <div>
+                    <p className="font-medium">{item.title}</p>
+                    <p className="text-muted-foreground">{item.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium">Email</p>
-                  <p className="text-muted-foreground">contact@johndoe.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Phone className="text-primary" size={20} />
-                </div>
-                <div>
-                  <p className="font-medium">Phone</p>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <MapPin className="text-primary" size={20} />
-                </div>
-                <div>
-                  <p className="font-medium">Location</p>
-                  <p className="text-muted-foreground">San Francisco, CA</p>
-                </div>
-              </div>
+              ))}
             </div>
             
-            <div className="flex space-x-4 pt-6">
+            <div className={`flex space-x-4 pt-6 transition-all duration-600 delay-1000 ${
+              contentVisible 
+                ? 'opacity-100 transform translate-y-0' 
+                : 'opacity-0 transform translate-y-4'
+            }`}>
               <Button variant="outline" size="sm" asChild className="hover-scale">
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <Github size={18} className="mr-2" />
@@ -84,17 +102,33 @@ const Contact = () => {
           </div>
           
           {/* Contact Form */}
-          <Card className="hover-scale transition-all duration-300 hover:shadow-lg">
+          <Card className={`hover-scale transition-all duration-800 delay-600 hover:shadow-lg ${
+            contentVisible 
+              ? 'opacity-100 transform translate-x-0' 
+              : 'opacity-0 transform translate-x-8'
+          }`}>
             <CardContent className="p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
+                  <div className={`transition-all duration-400 ${
+                    contentVisible 
+                      ? 'opacity-100 transform translate-y-0' 
+                      : 'opacity-0 transform translate-y-4'
+                  }`}
+                  style={{ transitionDelay: '800ms' }}
+                  >
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Name
                     </label>
                     <Input id="name" placeholder="Your name" required />
                   </div>
-                  <div>
+                  <div className={`transition-all duration-400 ${
+                    contentVisible 
+                      ? 'opacity-100 transform translate-y-0' 
+                      : 'opacity-0 transform translate-y-4'
+                  }`}
+                  style={{ transitionDelay: '900ms' }}
+                  >
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                       Email
                     </label>
@@ -102,14 +136,26 @@ const Contact = () => {
                   </div>
                 </div>
                 
-                <div>
+                <div className={`transition-all duration-400 ${
+                  contentVisible 
+                    ? 'opacity-100 transform translate-y-0' 
+                    : 'opacity-0 transform translate-y-4'
+                }`}
+                style={{ transitionDelay: '1000ms' }}
+                >
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
                     Subject
                   </label>
                   <Input id="subject" placeholder="Project inquiry" required />
                 </div>
                 
-                <div>
+                <div className={`transition-all duration-400 ${
+                  contentVisible 
+                    ? 'opacity-100 transform translate-y-0' 
+                    : 'opacity-0 transform translate-y-4'
+                }`}
+                style={{ transitionDelay: '1100ms' }}
+                >
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message
                   </label>
@@ -121,7 +167,15 @@ const Contact = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full hover-scale">
+                <Button 
+                  type="submit" 
+                  className={`w-full hover-scale transition-all duration-400 ${
+                    contentVisible 
+                      ? 'opacity-100 transform translate-y-0' 
+                      : 'opacity-0 transform translate-y-4'
+                  }`}
+                  style={{ transitionDelay: '1200ms' }}
+                >
                   Send Message
                 </Button>
               </form>
@@ -130,7 +184,11 @@ const Contact = () => {
         </div>
         
         {/* Footer */}
-        <div className="text-center mt-16 pt-8 border-t border-border">
+        <div className={`text-center mt-16 pt-8 border-t border-border transition-all duration-800 delay-1000 ${
+          contentVisible 
+            ? 'opacity-100 transform translate-y-0' 
+            : 'opacity-0 transform translate-y-4'
+        }`}>
           <p className="text-muted-foreground">
             © 2024 John Doe. Built with React and Tailwind CSS.
           </p>

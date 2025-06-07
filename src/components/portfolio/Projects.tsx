@@ -4,8 +4,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Github } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Projects = () => {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
+  const { ref: projectsRef, isVisible: projectsVisible } = useScrollAnimation({ threshold: 0.1 });
+
   const projects = [
     {
       title: "E-Commerce Platform",
@@ -34,18 +38,41 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 bg-muted/10">
+    <section 
+      ref={sectionRef}
+      id="projects" 
+      className={`py-24 bg-muted/10 transition-all duration-1000 ${
+        sectionVisible 
+          ? 'opacity-100 transform translate-y-0' 
+          : 'opacity-0 transform translate-y-12'
+      }`}
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-800 delay-200 ${
+          sectionVisible 
+            ? 'opacity-100 transform translate-y-0' 
+            : 'opacity-0 transform translate-y-8'
+        }`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             A selection of my recent work and personal projects
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <div 
+          ref={projectsRef}
+          className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto"
+        >
           {projects.map((project, index) => (
-            <Card key={project.title} className="overflow-hidden hover-scale transition-all duration-300 hover:shadow-lg group">
+            <Card 
+              key={project.title} 
+              className={`overflow-hidden hover-scale transition-all duration-600 hover:shadow-lg group ${
+                projectsVisible 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-12'
+              }`}
+              style={{ transitionDelay: `${400 + index * 200}ms` }}
+            >
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
