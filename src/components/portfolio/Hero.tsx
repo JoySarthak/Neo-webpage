@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
@@ -10,7 +9,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-background via-background to-muted/20">
+    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-background via-background to-muted/20 pt-16">
       <div className="container mx-auto px-6 text-center">
         <div className="animate-fade-in">
           <img
