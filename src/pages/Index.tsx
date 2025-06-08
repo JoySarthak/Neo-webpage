@@ -10,24 +10,24 @@ import Contact from '../components/portfolio/Contact';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background animate-page-entrance">
+    <div className="min-h-screen bg-background">
       <Navigation />
       <div id="hero">
         <Hero />
       </div>
-      <div id="about">
+      <div id="about" className="page-section">
         <About />
       </div>
-      <div id="skills">
+      <div id="skills" className="page-section">
         <Skills />
       </div>
-      <div id="projects">
+      <div id="projects" className="page-section">
         <Projects />
       </div>
-      <div id="experience">
+      <div id="experience" className="page-section">
         <Experience />
       </div>
-      <div id="contact">
+      <div id="contact" className="page-section">
         <Contact />
       </div>
     </div>
