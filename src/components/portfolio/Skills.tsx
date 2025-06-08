@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Skills = () => {
-  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation<HTMLElement>();
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
 
   const skillCategories = [
     {

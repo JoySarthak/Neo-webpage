@@ -4,8 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const About = () => {
-  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
-  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation<HTMLElement>();
+  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <section 

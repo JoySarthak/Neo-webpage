@@ -12,7 +12,7 @@ const Navigation = () => {
     { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'projects', label: 'Portfolio' },
     { id: 'experience', label: 'Experience' },
     { id: 'contact', label: 'Contact' }
   ];
@@ -52,14 +52,14 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' 
+        ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-lg' 
         : 'bg-background/80 backdrop-blur-sm'
     }`}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="font-bold text-xl text-primary transition-all duration-300 hover:scale-105">
-            John Doe
+          <div className="font-bold text-2xl text-foreground transition-all duration-300 hover:scale-105">
+            Portfolio.
           </div>
 
           {/* Desktop Navigation */}
@@ -86,7 +86,7 @@ const Navigation = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="md:hidden transition-transform duration-200 hover:scale-105"
+            className="md:hidden transition-transform duration-200 hover:scale-105 text-foreground"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
