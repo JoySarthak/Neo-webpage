@@ -1,15 +1,30 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Github, Linkedin, Mail, Facebook, Twitter, Instagram } from 'lucide-react';
 
 const Hero = () => {
+  const [imageAnimation, setImageAnimation] = useState('animate-spin-to-appear');
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({
       behavior: 'smooth'
     });
   };
+
+  useEffect(() => {
+    // Cycle through the animations every 6 seconds
+    const interval = setInterval(() => {
+      setImageAnimation('animate-spin-to-fade');
+      
+      setTimeout(() => {
+        setImageAnimation('animate-spin-to-appear');
+      }, 2000);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center relative bg-background pt-16">
@@ -92,11 +107,11 @@ const Hero = () => {
               <div className="absolute inset-0 bg-primary/20 rounded-3xl transform rotate-12 scale-110 animate-glow"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-primary/10 rounded-3xl transform -rotate-6 scale-105"></div>
               
-              {/* Profile image */}
+              {/* Profile image with spin animations */}
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"
                 alt="John Kendric"
-                className="relative w-80 h-96 object-cover rounded-3xl shadow-2xl border-4 border-primary/30"
+                className={`relative w-80 h-96 object-cover rounded-3xl shadow-2xl border-4 border-primary/30 ${imageAnimation}`}
               />
               
               {/* Glowing border effect */}

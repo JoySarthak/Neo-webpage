@@ -10,7 +10,7 @@ import Contact from '../components/portfolio/Contact';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animate-page-entrance">
       <Navigation />
       <div id="hero">
         <Hero />
